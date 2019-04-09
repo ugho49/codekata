@@ -10,36 +10,47 @@ import static org.junit.Assert.assertEquals;
 
 public class WeatherServiceTest {
 
-    private WeatherService weatherData;
+    private final WeatherService weatherService;
 
     public WeatherServiceTest() throws FileNotFoundException {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        final URL resource = classLoader.getResource("weather.dat");
-        if (resource == null) {
-            throw new FileNotFoundException("No weather file in resources folder");
-        }
-        File weatherFile = new File(resource.getFile());
-        weatherData = new WeatherService(weatherFile);
+        this.weatherService = new WeatherService(getFile());
     }
 
     @Test
     public void shouldReturnTemperatureSpreadOfDayOne() throws Exception {
-        assertEquals(29d, weatherData.getTemperatureSpreadForDay(1), 0);
+        assertEquals(29d, weatherService.getTemperatureSpreadForDay(1), 0);
+    }
+
+    @Test(expected=FileNotFoundException.class)
+    public void shouldEmitAnExceptionIfFileNull() throws Exception {
+        new WeatherService(null);
+    }
+
+    @Test(expected=FileNotFoundException.class)
+    public void shouldEmitAnExceptionIfNotFile() throws Exception {
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        final URL resource = classLoader.getResource("");
+        new WeatherService(new File(resource.getFile()));
     }
 
     @Test(expected=Exception.class)
     public void shouldEmitExceptionIfDayIsNotCorrect() throws Exception {
-        weatherData.getTemperatureSpreadForDay(40);
+        weatherService.getTemperatureSpreadForDay(40);
     }
 
     @Test
     public void shouldReturnDayNumberWithHighestTemperatureSpread() {
-        assertEquals(9, weatherData.getDayWithHighestTemperatureSpread());
+        assertEquals(9, weatherService.getDayWithHighestTemperatureSpread());
     }
 
     @Test
     public void shouldReturnDayNumberWithSmalestTemperatureSpread() {
-        assertEquals(14, weatherData.getDayWithSmalestTemperatureSpread());
+        assertEquals(14, weatherService.getDayWithSmalestTemperatureSpread());
     }
 
+    private File getFile() {
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        final URL resource = classLoader.getResource("weather.dat");
+        return new File(resource.getFile());
+    }
 }

@@ -22,6 +22,7 @@ class WeatherService {
 
     private List<Weather> getDaysInfo() {
         final List<String> lines = FileDataReader.getLines(weatherFile);
+        // Remove first and second lines
         lines.remove(0);
         lines.remove(0);
         return lines.stream()
