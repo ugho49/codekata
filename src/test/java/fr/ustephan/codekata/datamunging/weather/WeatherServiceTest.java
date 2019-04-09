@@ -1,4 +1,4 @@
-package fr.ustephan.codekata.datamunging;
+package fr.ustephan.codekata.datamunging.weather;
 
 import org.junit.Test;
 

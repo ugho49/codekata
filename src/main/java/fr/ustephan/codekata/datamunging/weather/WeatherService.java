@@ -1,4 +1,6 @@
-package fr.ustephan.codekata.datamunging;
+package fr.ustephan.codekata.datamunging.weather;
+
+import fr.ustephan.codekata.datamunging.FileDataReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
-class FileDataReader {
+public class FileDataReader {
 
-    static List<String> getLines(final File file) {
+    public static List<String> getLines(final File file) {
         try {
             return Files.readAllLines(Paths.get(file.toURI()));
         } catch (IOException e) {

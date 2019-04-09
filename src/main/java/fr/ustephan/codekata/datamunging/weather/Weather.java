@@ -1,4 +1,4 @@
-package fr.ustephan.codekata.datamunging;
+package fr.ustephan.codekata.datamunging.weather;
 
 class Weather {
     private final int day;
