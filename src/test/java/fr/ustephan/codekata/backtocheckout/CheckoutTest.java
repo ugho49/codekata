@@ -1,42 +1,42 @@
 package fr.ustephan.codekata.backtocheckout;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
 
-public class CheckoutTest {
+class CheckoutTest {
 
     private static final Item ITEM_A = new Item("A", "tomato");
     private static final Item ITEM_B = new Item("B", "cereals");
     private static final Item ITEM_C = new Item("C", "milk");
     private static final Item ITEM_D = new Item("D", "tooth brush");
 
-    @Test(expected = RuntimeException.class)
-    public void shouldEmitAnErrorIfPricingRulesIsNullAtCreation() {
-        new Checkout(null);
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void shouldEmitAnErrorIfNoPricingRulesArePresentAtCreation() {
-        new Checkout(new PricingRules());
+    @Test
+    void shouldEmitAnErrorIfPricingRulesIsNullAtCreation() {
+        assertThat(catchThrowable(() -> new Checkout(null))).isInstanceOf(RuntimeException.class);
     }
 
     @Test
-    public void shouldReturnTheCorrectTotal() {
+    void shouldEmitAnErrorIfNoPricingRulesArePresentAtCreation() {
+        assertThat(catchThrowable(() -> new Checkout(new PricingRules()))).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    void shouldReturnTheCorrectTotal() {
         final var checkout = new Checkout(getPricingRules());
         checkout.scan(ITEM_A);
         checkout.scan(ITEM_B);
-        assertEquals(59.55d, checkout.getTotal(), 1d);
+        assertThat(checkout.getTotal()).isEqualTo(59.55d);
     }
 
     @Test
-    public void shouldReturnTheCorrectTotalWhenSpecialPriceItems() {
+    void shouldReturnTheCorrectTotalWhenSpecialPriceItems() {
         final var checkout = new Checkout(getPricingRules());
         checkout.scan(ITEM_A);
         checkout.scan(ITEM_D);
         checkout.scan(ITEM_D);
         checkout.scan(ITEM_D);
-        assertEquals(19d, checkout.getTotal(), 1d);
+        assertThat(checkout.getTotal()).isEqualTo(19d);
     }
 
     private PricingRules getPricingRules() {

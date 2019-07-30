@@ -9,4 +9,6 @@ class AnagramService {
     AnagramService(final List<String> dictionnary) {
         this.dictionnary = dictionnary;
     }
+
+    // TODO: not yet implemented
 }

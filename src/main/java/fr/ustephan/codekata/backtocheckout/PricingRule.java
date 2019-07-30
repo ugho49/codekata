@@ -1,11 +1,15 @@
 package fr.ustephan.codekata.backtocheckout;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
+
+import static java.math.RoundingMode.HALF_UP;
 
 class PricingRule {
 
     private final Item item;
-    private final Double unitPrice;
+    private final BigDecimal unitPrice;
     private final Optional<SpecialPricingRule> specialPricing;
 
     PricingRule(final Item item, final Double unitPrice) {
@@ -20,7 +24,7 @@ class PricingRule {
             throw new RuntimeException("The price must be above 0.00");
         }
         this.item = item;
-        this.unitPrice = unitPrice;
+        this.unitPrice = new BigDecimal(unitPrice);
         this.specialPricing = Optional.ofNullable(specialPricing);
     }
 
@@ -29,7 +33,7 @@ class PricingRule {
     }
 
     Double getUnitPrice() {
-        return unitPrice;
+        return unitPrice.doubleValue();
     }
 
     Optional<SpecialPricingRule> getSpecialPricingRule() {
@@ -37,18 +41,22 @@ class PricingRule {
     }
 
     Double getPriceFor(final int quantity) {
-        double price = 0d;
-        int q = quantity;
+        BigDecimal price = new BigDecimal(0);
+        int remainQuantity = quantity;
 
         if (this.specialPricing.isPresent()) {
             final SpecialPricingRule sp = this.specialPricing.get();
 
-            while (q >= sp.getApplicableNumberOfItems()) {
-                q -= sp.getApplicableNumberOfItems();
-                price += sp.getNewPrice();
+            while (remainQuantity >= sp.getApplicableNumberOfItems()) {
+                remainQuantity -= sp.getApplicableNumberOfItems();
+                price = price.add(new BigDecimal(sp.getNewPrice()));
             }
         }
 
-        return (unitPrice * q) + price;
+        return unitPrice
+                .multiply(new BigDecimal(remainQuantity))
+                .add(price)
+                .setScale(2, HALF_UP)
+                .doubleValue();
     }
 }
