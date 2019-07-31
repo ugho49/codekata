@@ -6,7 +6,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
-
+// TODO: not yet implemented
 public class AnagramServiceTest {
 
     private final List<String> words;
@@ -22,6 +22,4 @@ public class AnagramServiceTest {
         final URL resource = classLoader.getResource("wordlist.txt");
         return new File(resource.getFile());
     }
-
-    // TODO: not yet implemented
 }

@@ -1,27 +1,26 @@
 package fr.ustephan.codekata.datamunging.soccer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class SoccerTeamStatTest {
+class SoccerTeamStatTest {
 
     @Test
-    public void shouldReturnSoccer() {
+    void shouldReturnSoccer() {
         final String line = "    1. Arsenal         38    26   9   3    79  -  36    87       ";
-        assertNotNull(SoccerTeamStat.fromLine(line));
+        assertThat(SoccerTeamStat.fromLine(line)).isNotNull();
     }
 
     @Test
-    public void shouldReturnNullWithIncorrectLine() {
+    void shouldReturnNullWithIncorrectLine() {
         final String line = " jserkjgndkrnklsnk seorgjieo'nks";
-        assertNull(SoccerTeamStat.fromLine(line));
+        assertThat(SoccerTeamStat.fromLine(line)).isNull();
     }
 
     @Test
-    public void shouldReturnNullWithEmptyLine() {
+    void shouldReturnNullWithEmptyLine() {
         final String line = "";
-        assertNull(SoccerTeamStat.fromLine(line));
+        assertThat(SoccerTeamStat.fromLine(line)).isNull();
     }
 }

@@ -1,36 +1,36 @@
 package fr.ustephan.codekata.karatechop;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static fr.ustephan.codekata.karatechop.ArraySorter.chop;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ArraySorterTest {
-
+class ArraySorterTest {
 
     @Test
-    public void shouldReturnMinusOneWhenItemDontExist() {
-        assertEquals(-1, ArraySorter.chop(3, new int[] {}));
-        assertEquals(-1, ArraySorter.chop(3, new int[] {1}));
-        assertEquals(-1, ArraySorter.chop(0, new int[] {1, 3, 5}));
-        assertEquals(-1, ArraySorter.chop(2, new int[] {1, 3, 5}));
-        assertEquals(-1, ArraySorter.chop(4, new int[] {1, 3, 5}));
-        assertEquals(-1, ArraySorter.chop(6, new int[] {1, 3, 5}));
-        assertEquals(-1, ArraySorter.chop(0, new int[] {1, 3, 5, 7}));
-        assertEquals(-1, ArraySorter.chop(2, new int[] {1, 3, 5, 7}));
-        assertEquals(-1, ArraySorter.chop(4, new int[] {1, 3, 5, 7}));
-        assertEquals(-1, ArraySorter.chop(6, new int[] {1, 3, 5, 7}));
-        assertEquals(-1, ArraySorter.chop(8, new int[] {1, 3, 5, 7}));
+    void shouldReturnMinusOneWhenItemDontExist() {
+        assertThat(chop(3, new int[]{})).isEqualTo(-1);
+        assertThat(chop(3, new int[]{1})).isEqualTo(-1);
+        assertThat(chop(0, new int[]{1, 3, 5})).isEqualTo(-1);
+        assertThat(chop(2, new int[]{1, 3, 5})).isEqualTo(-1);
+        assertThat(chop(4, new int[]{1, 3, 5})).isEqualTo(-1);
+        assertThat(chop(6, new int[]{1, 3, 5})).isEqualTo(-1);
+        assertThat(chop(0, new int[]{1, 3, 5, 7})).isEqualTo(-1);
+        assertThat(chop(2, new int[]{1, 3, 5, 7})).isEqualTo(-1);
+        assertThat(chop(4, new int[]{1, 3, 5, 7})).isEqualTo(-1);
+        assertThat(chop(6, new int[]{1, 3, 5, 7})).isEqualTo(-1);
+        assertThat(chop(8, new int[]{1, 3, 5, 7})).isEqualTo(-1);
     }
 
     @Test
-    public void shouldReturnCorrectIndexOfArray() {
-        assertEquals(0,  ArraySorter.chop(1, new int[] {1}));
-        assertEquals(0,  ArraySorter.chop(1, new int[] {1, 3, 5}));
-        assertEquals(1,  ArraySorter.chop(3, new int[] {1, 3, 5}));
-        assertEquals(2,  ArraySorter.chop(5, new int[] {1, 3, 5}));
-        assertEquals(0,  ArraySorter.chop(1, new int[] {1, 3, 5, 7}));
-        assertEquals(1,  ArraySorter.chop(3, new int[] {1, 3, 5, 7}));
-        assertEquals(2,  ArraySorter.chop(5, new int[] {1, 3, 5, 7}));
-        assertEquals(3,  ArraySorter.chop(7, new int[] {1, 3, 5, 7}));
+    void shouldReturnCorrectIndexOfArray() {
+        assertThat(chop(1, new int[]{1})).isEqualTo(0);
+        assertThat(chop(1, new int[]{1, 3, 5})).isEqualTo(0);
+        assertThat(chop(3, new int[]{1, 3, 5})).isEqualTo(1);
+        assertThat(chop(5, new int[]{1, 3, 5})).isEqualTo(2);
+        assertThat(chop(1, new int[]{1, 3, 5, 7})).isEqualTo(0);
+        assertThat(chop(3, new int[]{1, 3, 5, 7})).isEqualTo(1);
+        assertThat(chop(5, new int[]{1, 3, 5, 7})).isEqualTo(2);
+        assertThat(chop(7, new int[]{1, 3, 5, 7})).isEqualTo(3);
     }
 }

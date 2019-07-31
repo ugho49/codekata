@@ -1,27 +1,27 @@
 package fr.ustephan.codekata.datamunging.weather;
 
-import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Test;
 
-public class WeatherTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class WeatherTest {
 
     @Test
-    public void shouldReturnWeather() {
+    void shouldReturnWeather() {
         final String line = "   1  88    59    74          53.8       0.00 F       280  9.6 270  17  1.6  93 23 1004.5";
-        assertNotNull(Weather.fromLine(line));
+        assertThat(Weather.fromLine(line)).isNotNull();
     }
 
     @Test
-    public void shouldReturnNullWithIncorrectLine() {
+    void shouldReturnNullWithIncorrectLine() {
         final String line = " jserkjgndkrnklsnk seorgjieo'nks";
-        assertNull(Weather.fromLine(line));
+        assertThat(Weather.fromLine(line)).isNull();
     }
 
     @Test
-    public void shouldReturnNullWithEmptyLine() {
+    void shouldReturnNullWithEmptyLine() {
         final String line = "";
-        assertNull(Weather.fromLine(line));
+        assertThat(Weather.fromLine(line)).isNull();
     }
 }

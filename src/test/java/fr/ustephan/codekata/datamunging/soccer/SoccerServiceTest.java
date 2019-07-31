@@ -1,46 +1,50 @@
 package fr.ustephan.codekata.datamunging.soccer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
-public class SoccerServiceTest {
+class SoccerServiceTest {
 
     private final SoccerService soccerService;
 
-    public SoccerServiceTest() throws FileNotFoundException {
+    SoccerServiceTest() throws FileNotFoundException {
         this.soccerService = new SoccerService(getFile());
     }
 
-    @Test(expected=FileNotFoundException.class)
-    public void shouldEmitAnExceptionIfFileNull() throws Exception {
-        new SoccerService(null);
-    }
-
-    @Test(expected=FileNotFoundException.class)
-    public void shouldEmitAnExceptionIfNotFile() throws Exception {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        final URL resource = classLoader.getResource("");
-        new SoccerService(new File(resource.getFile()));
+    @Test
+    void shouldEmitAnExceptionIfFileNull() {
+        assertThat(catchThrowable(() -> new SoccerService(null))).isInstanceOf(FileNotFoundException.class);
     }
 
     @Test
-    public void shouldReturnTheDifferenceInForAndAgainstGoalsForArsenal() throws Exception {
-        assertEquals(43, soccerService.getDifferenceInForAndAgainstGoalsForTeam("Arsenal"));
-    }
-
-    @Test(expected=Exception.class)
-    public void shouldEmitAnExceptionIfTeamDontExist() throws Exception {
-        soccerService.getDifferenceInForAndAgainstGoalsForTeam("Toto");
+    void shouldEmitAnExceptionIfNotFile() {
+        assertThat(catchThrowable(() -> {
+            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+            final URL resource = classLoader.getResource("");
+            new SoccerService(new File(resource.getFile()));
+        })).isInstanceOf(FileNotFoundException.class);
     }
 
     @Test
-    public void shouldReturnTheNameOfTheTeamWithTheSmallestDifferenceInForAndAgainstGoals() {
-        assertEquals("Aston_Villa", soccerService.getNameOfTeamWithTheSmallestDifferenceInForAndAgainstGoals());
+    void shouldReturnTheDifferenceInForAndAgainstGoalsForArsenal() throws Exception {
+        assertThat(soccerService.getDifferenceInForAndAgainstGoalsForTeam("Arsenal")).isEqualTo(43);
+    }
+
+    @Test
+    void shouldEmitAnExceptionIfTeamDontExist() {
+        assertThat(catchThrowable(() -> soccerService.getDifferenceInForAndAgainstGoalsForTeam("Toto")))
+                .isInstanceOf(Exception.class);
+    }
+
+    @Test
+    void shouldReturnTheNameOfTheTeamWithTheSmallestDifferenceInForAndAgainstGoals() {
+        assertThat(soccerService.getNameOfTeamWithTheSmallestDifferenceInForAndAgainstGoals()).isEqualTo("Aston_Villa");
     }
 
     private File getFile() {

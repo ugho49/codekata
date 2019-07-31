@@ -1,76 +1,76 @@
 package fr.ustephan.codekata.romannumeral;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class NumericalConverterTest {
+class NumericalConverterTest {
 
     @Test
-    public void shouldConvertThreeFirstnumbers() {
-        assertEquals(NumericalConverter.convert(1), "I");
-        assertEquals(NumericalConverter.convert(2), "II");
-        assertEquals(NumericalConverter.convert(3), "III");
+    void shouldConvertThreeFirstnumbers() {
+        assertThat(NumericalConverter.convert(1)).isEqualTo("I");
+        assertThat(NumericalConverter.convert(2)).isEqualTo("II");
+        assertThat(NumericalConverter.convert(3)).isEqualTo("III");
     }
 
     @Test
-    public void shouldConvertFourNumericToIV() {
-        assertEquals(NumericalConverter.convert(4), "IV");
-        assertEquals(NumericalConverter.convert(14), "XIV");
+    void shouldConvertFourNumericToIV() {
+        assertThat(NumericalConverter.convert(4)).isEqualTo("IV");
+        assertThat(NumericalConverter.convert(14)).isEqualTo("XIV");
     }
 
     @Test
-    public void shouldConvertFiveNumericToV() {
-        assertEquals(NumericalConverter.convert(5), "V");
+    void shouldConvertFiveNumericToV() {
+        assertThat(NumericalConverter.convert(5)).isEqualTo("V");
     }
 
     @Test
-    public void shouldConvertSixNumericToVI() {
-        assertEquals(NumericalConverter.convert(6), "VI");
+    void shouldConvertSixNumericToVI() {
+        assertThat(NumericalConverter.convert(6)).isEqualTo("VI");
     }
 
     @Test
-    public void shouldConvertSevenNumericToVII() {
-        assertEquals(NumericalConverter.convert(7), "VII");
+    void shouldConvertSevenNumericToVII() {
+        assertThat(NumericalConverter.convert(7)).isEqualTo("VII");
     }
 
     @Test
-    public void shouldConvertNineNumericToIX() {
-        assertEquals(NumericalConverter.convert(9), "IX");
+    void shouldConvertNineNumericToIX() {
+        assertThat(NumericalConverter.convert(9)).isEqualTo("IX");
     }
 
     @Test
-    public void shouldConvertTenNumericToX() {
-        assertEquals(NumericalConverter.convert(10), "X");
+    void shouldConvertTenNumericToX() {
+        assertThat(NumericalConverter.convert(10)).isEqualTo("X");
     }
 
     @Test
-    public void shouldConvertSixteenNumericToXVI() {
-        assertEquals(NumericalConverter.convert(16), "XVI");
+    void shouldConvertSixteenNumericToXVI() {
+        assertThat(NumericalConverter.convert(16)).isEqualTo("XVI");
     }
 
     @Test
-    public void shouldConvertTwentyNumericToXX() {
-        assertEquals(NumericalConverter.convert(20), "XX");
+    void shouldConvertTwentyNumericToXX() {
+        assertThat(NumericalConverter.convert(20)).isEqualTo("XX");
     }
 
     @Test
-    public void shouldConvertFiftyNumericToL() {
-        assertEquals(NumericalConverter.convert(50), "L");
+    void shouldConvertFiftyNumericToL() {
+        assertThat(NumericalConverter.convert(50)).isEqualTo("L");
     }
 
     @Test
-    public void shouldConvertHundredNumericToC() {
-        assertEquals(NumericalConverter.convert(100), "C");
+    void shouldConvertHundredNumericToC() {
+        assertThat(NumericalConverter.convert(100)).isEqualTo("C");
     }
 
     @Test
-    public void shouldConvertFiveHundredNumericToD() {
-        assertEquals(NumericalConverter.convert(500), "D");
+    void shouldConvertFiveHundredNumericToD() {
+        assertThat(NumericalConverter.convert(500)).isEqualTo("D");
     }
 
     @Test
-    public void shouldConvertThousandNumericToM() {
-        assertEquals(NumericalConverter.convert(1000), "M");
+    void shouldConvertThousandNumericToM() {
+        assertThat(NumericalConverter.convert(1000)).isEqualTo("M");
     }
 }

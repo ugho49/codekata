@@ -1,28 +1,28 @@
 package fr.ustephan.codekata.datamunging;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileDataReaderTest {
+class FileDataReaderTest {
 
     @Test
-    public void shouldNotBeEmpty() {
-        assertNotEquals(true, FileDataReader.getLines(getFile()).isEmpty());
+    void shouldNotBeEmpty() {
+        assertThat(FileDataReader.getLines(getFile())).isNotEmpty();
     }
 
     @Test
-    public void shouldContainsLinesIfFileIsCorrect() {
-        assertEquals(33, FileDataReader.getLines(getFile()).size());
+    void shouldContainsLinesIfFileIsCorrect() {
+        assertThat(FileDataReader.getLines(getFile())).hasSize(33);
     }
 
     @Test
-    public void shouldContainsNothingIfFileIsIncorrect() {
-        assertEquals(0, FileDataReader.getLines(new File("segrersersg")).size());
+    void shouldContainsNothingIfFileIsIncorrect() {
+        assertThat(FileDataReader.getLines(new File("segrersersg"))).hasSize(0);
     }
 
     private File getFile() {
