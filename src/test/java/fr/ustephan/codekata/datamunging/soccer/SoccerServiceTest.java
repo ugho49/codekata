@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SoccerServiceTest {
 
@@ -19,16 +19,16 @@ class SoccerServiceTest {
 
     @Test
     void shouldEmitAnExceptionIfFileNull() {
-        assertThat(catchThrowable(() -> new SoccerService(null))).isInstanceOf(FileNotFoundException.class);
+        assertThatThrownBy(() -> new SoccerService(null)).isInstanceOf(FileNotFoundException.class);
     }
 
     @Test
     void shouldEmitAnExceptionIfNotFile() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             final URL resource = classLoader.getResource("");
             new SoccerService(new File(resource.getFile()));
-        })).isInstanceOf(FileNotFoundException.class);
+        }).isInstanceOf(FileNotFoundException.class);
     }
 
     @Test
@@ -38,7 +38,7 @@ class SoccerServiceTest {
 
     @Test
     void shouldEmitAnExceptionIfTeamDontExist() {
-        assertThat(catchThrowable(() -> soccerService.getDifferenceInForAndAgainstGoalsForTeam("Toto")))
+        assertThatThrownBy(() -> soccerService.getDifferenceInForAndAgainstGoalsForTeam("Toto"))
                 .isInstanceOf(Exception.class);
     }
 

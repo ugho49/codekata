@@ -3,7 +3,7 @@ package fr.ustephan.codekata.backtocheckout;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PricingRuleTest {
 
@@ -31,17 +31,17 @@ class PricingRuleTest {
 
     @Test
     void shouldEmitAnErrorIfPriceIsBelowZero() {
-        assertThat(catchThrowable(() -> new PricingRule(ITEM, -0.5d))).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> new PricingRule(ITEM, -0.5d)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
     void shouldEmitAnErrorIfPriceIsEqualToZero() {
-        assertThat(catchThrowable(() -> new PricingRule(ITEM, 0d))).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> new PricingRule(ITEM, 0d)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
     void shouldEmitAnErrorIfItemIsNull() {
-        assertThat(catchThrowable(() -> new PricingRule(null, 12d))).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> new PricingRule(null, 12d)).isInstanceOf(RuntimeException.class);
     }
 
     @Test

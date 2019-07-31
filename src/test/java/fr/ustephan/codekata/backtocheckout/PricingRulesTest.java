@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PricingRulesTest {
 
@@ -39,11 +39,11 @@ class PricingRulesTest {
 
     @Test
     void shouldEmitAnErrorIfItemAlreadyHaveARule() {
-        assertThat(catchThrowable(() -> {
+        assertThatThrownBy(() -> {
             final var r1 = new PricingRule(ITEM_D, 5d);
             final var r2 = new PricingRule(ITEM_D_Prime, 5.89d, new SpecialPricingRule(2, 7d));
 
             pricingRules.addRule(r1).addRule(r2).getRules();
-        })).isInstanceOf(RuntimeException.class);
+        }).isInstanceOf(RuntimeException.class);
     }
 }

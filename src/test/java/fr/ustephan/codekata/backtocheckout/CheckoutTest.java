@@ -2,7 +2,8 @@ package fr.ustephan.codekata.backtocheckout;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CheckoutTest {
 
@@ -13,12 +14,12 @@ class CheckoutTest {
 
     @Test
     void shouldEmitAnErrorIfPricingRulesIsNullAtCreation() {
-        assertThat(catchThrowable(() -> new Checkout(null))).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> new Checkout(null)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
     void shouldEmitAnErrorIfNoPricingRulesArePresentAtCreation() {
-        assertThat(catchThrowable(() -> new Checkout(new PricingRules()))).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> new Checkout(new PricingRules())).isInstanceOf(RuntimeException.class);
     }
 
     @Test
